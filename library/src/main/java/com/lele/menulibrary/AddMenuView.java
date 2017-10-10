@@ -14,6 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * Created by lele on 2017/9/28.
@@ -65,7 +68,7 @@ public class AddMenuView extends FrameLayout {
         for (int i = 0; i < drawbleIds.length; i++) {
             final int position = i;
             TextView tx = new TextView(context);
-            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tx.setLayoutParams(params);
             tx.setCompoundDrawablesWithIntrinsicBounds(null, null,
                     getResources().getDrawable(drawbleIds[i]), null);
@@ -80,6 +83,7 @@ public class AddMenuView extends FrameLayout {
                     }
                 }
             });
+            tx.setVisibility(GONE);
             addView(tx);
         }
         showAnimation();
@@ -96,6 +100,24 @@ public class AddMenuView extends FrameLayout {
             PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(getChildAt(i), translationHolder, alphaHolder);
             animator.setStartDelay(i * 100);
+            if (getChildAt(i).getVisibility() == GONE) {
+                if (i > 0) {
+                    final int finalI = i;
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getChildAt(finalI).setVisibility(VISIBLE);
+                                }
+                            });
+                        }
+                    }, i * 100);
+                } else {
+                    getChildAt(i).setVisibility(VISIBLE);
+                }
+            }
             animator.setDuration(300);
             animator.setInterpolator(new OvershootInterpolator());
             animator.start();
@@ -111,7 +133,7 @@ public class AddMenuView extends FrameLayout {
     public void hideAnimation() {
         for (int i = 0; i < drawbleIds.length; i++) {
             AnimatorSet animationSet = new AnimatorSet();
-            ObjectAnimator translationY = ObjectAnimator.ofFloat(getChildAt(i), "translationY", i * ITEM_HIGHT + dip2px(context, 35),-dip2px(context, 35));
+            ObjectAnimator translationY = ObjectAnimator.ofFloat(getChildAt(i), "translationY", i * ITEM_HIGHT + dip2px(context, 35), -dip2px(context, 35));
             ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(getChildAt(i), "alpha", 1f, 0f);
             animationSet.playTogether(translationY, alphaAnimation);
             animationSet.setDuration(300);
