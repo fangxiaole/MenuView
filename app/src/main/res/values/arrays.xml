@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="add_text">
+        <item>当初大口大口</item>
+        <item>当初锻炼锻炼</item>
+        <item>当初得到大量劳动力</item>
+    </array>
+    <integer-array name="add_drawables">
+        <item>@drawable/bg_intelligent_online_add</item>
+        <item>@drawable/bg_manually_add</item>
+        <item>@drawable/bg_sweep_one_sweep_add</item>
+    </integer-array>
+</resources>
