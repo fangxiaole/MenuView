@@ -8,7 +8,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -63,10 +62,7 @@ public class AddMenuView extends FrameLayout {
         setClipToPadding(false);
         for (int i = 0; i < drawbleIds.length; i++) {
             final int position = i;
-            LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, dip2px(context, 35), 0, 0);
             TextView tx = new TextView(context);
-            tx.setLayoutParams(params);
             tx.setCompoundDrawablesWithIntrinsicBounds(null, null,
                     getResources().getDrawable(drawbleIds[i]), null);
             tx.setCompoundDrawablePadding(text_and_picture_space);
@@ -111,7 +107,7 @@ public class AddMenuView extends FrameLayout {
     public void hideAnimation() {
         for (int i = 0; i < drawbleIds.length; i++) {
             AnimatorSet animationSet = new AnimatorSet();
-            ObjectAnimator translationY = ObjectAnimator.ofFloat(getChildAt(i), "translationY", i * ITEM_HIGHT + dip2px(context, 35), 0);
+            ObjectAnimator translationY = ObjectAnimator.ofFloat(getChildAt(i), "translationY", i * ITEM_HIGHT + dip2px(context, 35),-dip2px(context, 35));
             ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(getChildAt(i), "alpha", 1f, 0f);
             animationSet.playTogether(translationY, alphaAnimation);
             animationSet.setDuration(300);
