@@ -8,8 +8,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -63,6 +65,8 @@ public class AddMenuView extends FrameLayout {
         for (int i = 0; i < drawbleIds.length; i++) {
             final int position = i;
             TextView tx = new TextView(context);
+            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            tx.setLayoutParams(params);
             tx.setCompoundDrawablesWithIntrinsicBounds(null, null,
                     getResources().getDrawable(drawbleIds[i]), null);
             tx.setCompoundDrawablePadding(text_and_picture_space);

@@ -1,11 +1,10 @@
 package com.lele.menuview;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         tx_test = (TextView) findViewById(R.id.tx_test);
         ll_test = (LinearLayout) findViewById(R.id.ll_test);
         addMenuView = new AddMenuView(context, drawbleIds, strs);
-        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
         addMenuView.setLayoutParams(params);
         addMenuView.setOnItemClickListener(new AddMenuView.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.e("leleTest","position"+position);
+                Log.e("hdltag", "onItemClick(MainActivity.java:34):position="+position);
             }
 
             @Override
