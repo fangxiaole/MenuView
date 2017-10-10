@@ -10,7 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
@@ -18,7 +18,7 @@ import android.widget.TextView;
  * Created by lele on 2017/9/28.
  */
 
-public class AddMenuView extends LinearLayout {
+public class AddMenuView extends FrameLayout {
     private Context context;
     //距离右边的距离
     private static final int PADDING_RIGHT = 32;
@@ -28,7 +28,6 @@ public class AddMenuView extends LinearLayout {
     private static final int ITEM_HIGHT = 260;
 
     private boolean isShow = false;
-
     int[] drawbleIds;
     String[] strs;
     private int topHeight = 90;
@@ -39,7 +38,7 @@ public class AddMenuView extends LinearLayout {
         text_and_picture_space = dip2px(context, 18);
         this.drawbleIds = drawbleIds;
         this.strs = strs;
-        setOrientation(VERTICAL);
+//        setOrientation(VERTICAL);
         init();
     }
 
@@ -65,7 +64,7 @@ public class AddMenuView extends LinearLayout {
         for (int i = 0; i < drawbleIds.length; i++) {
             final int position = i;
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, dip2px(context,35), 0, 0);
+            params.setMargins(0, dip2px(context, 35), 0, 0);
             TextView tx = new TextView(context);
             tx.setLayoutParams(params);
             tx.setCompoundDrawablesWithIntrinsicBounds(null, null,
@@ -81,7 +80,6 @@ public class AddMenuView extends LinearLayout {
                     }
                 }
             });
-//            tx.setHeight(260);
             addView(tx);
         }
         showAnimation();
@@ -94,7 +92,7 @@ public class AddMenuView extends LinearLayout {
 
     public void showAnimation() {
         for (int i = 0; i < drawbleIds.length; i++) {
-            PropertyValuesHolder translationHolder = PropertyValuesHolder.ofFloat("translationY", dip2px(context,35));
+            PropertyValuesHolder translationHolder = PropertyValuesHolder.ofFloat("translationY", i * ITEM_HIGHT + dip2px(context, 35));
             PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(getChildAt(i), translationHolder, alphaHolder);
             animator.setStartDelay(i * 100);
@@ -113,7 +111,7 @@ public class AddMenuView extends LinearLayout {
     public void hideAnimation() {
         for (int i = 0; i < drawbleIds.length; i++) {
             AnimatorSet animationSet = new AnimatorSet();
-            ObjectAnimator translationY = ObjectAnimator.ofFloat(getChildAt(i), "translationY", 0, -(ITEM_HIGHT * i + topHeight));
+            ObjectAnimator translationY = ObjectAnimator.ofFloat(getChildAt(i), "translationY", i * ITEM_HIGHT + dip2px(context, 35), 0);
             ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(getChildAt(i), "alpha", 1f, 0f);
             animationSet.playTogether(translationY, alphaAnimation);
             animationSet.setDuration(300);
