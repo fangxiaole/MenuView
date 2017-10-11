@@ -97,9 +97,9 @@ public class AddMenuView extends FrameLayout {
     public void showAnimation() {
         for (int i = 0; i < drawbleIds.length; i++) {
             PropertyValuesHolder translationHolder = PropertyValuesHolder.ofFloat("translationY", i * ITEM_HIGHT + dip2px(context, 35));
-            PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
+            PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0f, 0.5f, 1f);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(getChildAt(i), translationHolder, alphaHolder);
-            animator.setStartDelay(i * 100);
+            animator.setStartDelay(i * 50);
             if (getChildAt(i).getVisibility() == GONE) {
                 if (i > 0) {
                     final int finalI = i;
@@ -118,7 +118,7 @@ public class AddMenuView extends FrameLayout {
                     getChildAt(i).setVisibility(VISIBLE);
                 }
             }
-            animator.setDuration(300);
+            animator.setDuration(550);
             animator.setInterpolator(new OvershootInterpolator());
             animator.start();
         }
