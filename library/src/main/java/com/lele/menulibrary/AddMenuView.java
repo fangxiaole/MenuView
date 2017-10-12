@@ -30,7 +30,7 @@ public class AddMenuView extends FrameLayout {
     //文字与图片距离
     private static int text_and_picture_space = 36;
     //每一个item高度
-    private static final int ITEM_HIGHT = 260;
+    private static int ITEM_HIGHT = 260;
 
     private boolean isShow = false;
     int[] drawbleIds;
@@ -43,6 +43,7 @@ public class AddMenuView extends FrameLayout {
         text_and_picture_space = dip2px(context, 18);
         this.drawbleIds = drawbleIds;
         this.strs = strs;
+        ITEM_HIGHT = dip2px(context, 90);
 //        setOrientation(VERTICAL);
         init();
     }
@@ -105,8 +106,8 @@ public class AddMenuView extends FrameLayout {
     public void showAnimation() {
         for (int i = 0; i < drawbleIds.length; i++) {
             PropertyValuesHolder translationHolder = PropertyValuesHolder.ofFloat("translationY", i * ITEM_HIGHT + dip2px(context, 35));
-            Keyframe keyframe1=Keyframe.ofFloat(0.9f,0.1f);
-            Keyframe keyframe2=Keyframe.ofFloat(1,1);
+            Keyframe keyframe1 = Keyframe.ofFloat(0.9f, 0.1f);
+            Keyframe keyframe2 = Keyframe.ofFloat(1, 1);
 //            PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
             PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofKeyframe("Alpha", keyframe1, keyframe2);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(getChildAt(i), translationHolder, alphaHolder);
