@@ -44,7 +44,6 @@ public class AddMenuView extends FrameLayout {
         this.drawbleIds = drawbleIds;
         this.strs = strs;
         ITEM_HIGHT = dip2px(context, 90);
-//        setOrientation(VERTICAL);
         init();
     }
 
