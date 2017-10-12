@@ -2,6 +2,7 @@ package com.lele.menulibrary;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
@@ -85,7 +86,14 @@ public class AddMenuView extends FrameLayout {
             });
             tx.setVisibility(GONE);
             addView(tx);
+            if (i == 1) {//将中间个设置为最前的
+                //这样原先的那个button就会到了最前面。
+                tx.bringToFront();
+            }
         }
+        //android4.4之前的版本需要让view的父控件调用这两个方法使其重绘。
+        this.requestLayout();
+        this.invalidate();
         showAnimation();
     }
 
@@ -97,7 +105,10 @@ public class AddMenuView extends FrameLayout {
     public void showAnimation() {
         for (int i = 0; i < drawbleIds.length; i++) {
             PropertyValuesHolder translationHolder = PropertyValuesHolder.ofFloat("translationY", i * ITEM_HIGHT + dip2px(context, 35));
-            PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0f, 0.5f, 1f);
+            Keyframe keyframe1=Keyframe.ofFloat(0.9f,0.1f);
+            Keyframe keyframe2=Keyframe.ofFloat(1,1);
+//            PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
+            PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofKeyframe("Alpha", keyframe1, keyframe2);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(getChildAt(i), translationHolder, alphaHolder);
             animator.setStartDelay(i * 50);
             if (getChildAt(i).getVisibility() == GONE) {
