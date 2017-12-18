@@ -84,7 +84,7 @@ public class AddMenuView extends FrameLayout {
                     }
                 }
             });
-            tx.setVisibility(GONE);
+//            tx.setVisibility(GONE);
             addView(tx);
             if (i == 1) {//将中间个设置为最前的
                 //这样原先的那个button就会到了最前面。
