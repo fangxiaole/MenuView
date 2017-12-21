@@ -36,6 +36,10 @@ public class AddMenuView extends FrameLayout {
     int[] drawbleIds;
     String[] strs;
     private int topHeight = 90;
+    /**
+     * 动画结束的个数
+     */
+    private int animateFinishedCount = 0;
 
     public AddMenuView(Context context, int[] drawbleIds, String[] strs) {
         super(context);
@@ -84,7 +88,7 @@ public class AddMenuView extends FrameLayout {
                     }
                 }
             });
-//            tx.setVisibility(GONE);
+            tx.setVisibility(GONE);
             addView(tx);
             if (i == 1) {//将中间个设置为最前的
                 //这样原先的那个button就会到了最前面。
@@ -130,6 +134,38 @@ public class AddMenuView extends FrameLayout {
                 }
             }
             animator.setDuration(550);
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    animateFinishedCount++;
+                    if (animateFinishedCount == 3) {
+                        animateFinishedCount = 0;
+                        post(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < drawbleIds.length; i++) {
+                                    getChildAt(i).setVisibility(VISIBLE);
+                                }
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
             animator.setInterpolator(new OvershootInterpolator());
             animator.start();
         }
